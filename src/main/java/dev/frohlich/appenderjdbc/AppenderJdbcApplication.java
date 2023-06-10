@@ -1,7 +1,7 @@
 package dev.frohlich.appenderjdbc;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -14,20 +14,12 @@ public class AppenderJdbcApplication {
         SpringApplication.run(AppenderJdbcApplication.class, args);
     }
 
+    @Autowired
+    ContextualLogger logger;
+
     @EventListener
     public void onApplicationEvent(ApplicationReadyEvent event) {
-
-        Logger logger = LoggerFactory.getLogger(AppenderJdbcApplication.class);
-
-        logger.trace("This is a trace message {}", "Argument 1");
-
-        logger.info("This is an info message");
-
-        logger.debug("This is a debug message");
-
-        logger.error("This is an error message");
-
-
+        logger.trace("Hello World! {}", "aaaaa");
     }
 
 }

@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/appender?currentSchema=teste
+    username: postgres
+    password: postgres@123
+
+# Quando usado logback-spring.xml as linhas abaixo sao ignoradas
+logging:
+  level:
+    root: info
+    web: warn

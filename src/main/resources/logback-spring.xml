@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+
+<configuration>
+
+    <!--  Importando padrao do spring  -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <!--  Importando dependencias para db-appender -->
+    <import class="ch.qos.logback.core.db.DriverManagerConnectionSource"/>
+    <import class="ch.qos.logback.classic.db.DBAppender"/>
+
+    <!-- Deve-se usar logback-spring.xml para usar variaveis com a tag springProperty -->
+    <springProperty name="connection.driver" source="spring.datasource.driver-class-name" />
+    <springProperty name="connection.url" source="spring.datasource.url" />
+    <springProperty name="connection.username" source="spring.datasource.username" />
+    <springProperty name="connection.password" source="spring.datasource.password" />
+
+    <!-- Appender para o banco, o appender para console foi importado na linha 8 -->
+    <appender name="DB" class="DBAppender">
+        <connectionSource class="DriverManagerConnectionSource">
+            <driverClass>${connection.driver}</driverClass>
+            <url>${connection.url}</url>
+            <user>${connection.username}</user>
+            <password>${connection.password}</password>
+        </connectionSource>
+    </appender>
+
+    <!-- do mais especifico para o mais generico -->
+    <logger name="dev.frohlich" level="TRACE">
+        <appender-ref ref="DB" />
+    </logger>
+
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>
